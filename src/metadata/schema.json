@@ -1,0 +1,1038 @@
+{
+    "package": "MicrosoftTranslatorText",
+    "tagline": "MicrosoftTranslatorText API",
+    "description": "Microsoft Translator APIs can be seamlessly integrated into your applications, websites, tools, or other solutions to provide multi-language user experiences. Leveraging industry standards, it can be used on any hardware platform and with any operating system to perform language translation and other language-related operations such as text language detection or text to speech.",
+    "image": "https:\/\/logo.clearbit.com\/\/www.microsoft.com",
+    "repo": "https://github.com/RapidSoftwareSolutions/Marketplace-MicrosoftTranslatorText-Package",
+    "keywords": [
+        "API",
+        "Translate",
+        "language",
+        "Words",
+        "Text"
+    ],
+    "accounts": {
+        "domain": "microsofttranslator.com",
+        "credentials": [
+            "apiKey"
+        ]
+    },
+    "steps": [
+        "Sign up for a Microsoft Azure account at http:\/\/azure.com",
+        "After you have an account go to http:\/\/portal.azure.com",
+        "Select the + New option.",
+        "Select AI + Cognitive Services from the list of services.",
+        "Select Translator Text API. You may need to click `See all` or search to see it.",
+        "Fill out the rest of the form, and select the Create button.",
+        "You are now subscribed to Microsoft Translator Text API.",
+        "Go to All Resources and select the Microsoft Translator API you subscribed to.",
+        "Go to the Keys option and copy your subscription key to access the service."
+    ],
+    "blocks": [
+        {
+            "name": "getTranslate",
+            "description": "Translates a text string from one language to another.If you previously used AddTranslation or AddTranslationArray to enter a translation with a rating of 5 or higher for the same source sentence, Translate returns only the top choice that is available to your system. The `same source sentence` means the exact same (100% matching), except for capitalization, white space, tag values, and punctuation at the end of a sentence. If no rating is stored with a rating of 5 or above then the returned result will be the automatic translation by Microsoft Translator.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                },
+                {
+                    "name": "text",
+                    "type": "String",
+                    "info": "A string representing the text to translate. The size of the text must not exceed 10000 characters.",
+                    "required": true
+                },
+                {
+                    "name": "to",
+                    "type": "String",
+                    "info": "A string representing the language code to translate the text into.",
+                    "required": true
+                },
+                {
+                    "name": "from",
+                    "type": "String",
+                    "info": "A string representing the language code of the translation text. For example, `en` for English.",
+                    "required": false
+                },
+                {
+                    "name": "contentType",
+                    "type": "Select",
+                    "options": [
+                        "text\/plain",
+                        "text\/html"
+                    ],
+                    "info": "The format of the text being translated. The supported formats are text\/plain (default) and  text\/html. Any HTML needs to be a well-formed, complete element.",
+                    "required": false
+                },
+                {
+                    "name": "category",
+                    "type": "String",
+                    "info": "A string containing the category (domain) of the translation. Defaults to `general`.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.microsofttranslator.com\/V2\/Http.svc\/Translate",
+                "method": "get",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "text",
+                            "from",
+                            "to",
+                            "contentType",
+                            "category"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getLanguagesForTranslate",
+            "description": "Obtain a list of language codes representing languages that are supported by the Translation Service.  Translate and TranslateArray can translate between any two of these languages.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.microsofttranslator.com\/V2\/Http.svc\/GetLanguagesForTranslate",
+                "method": "get",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getLanguagesForSpeak",
+            "description": "Retrieves the languages available for speech synthesis.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.microsofttranslator.com\/V2\/Http.svc\/GetLanguagesForSpeak",
+                "method": "get",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getSpeak",
+            "description": "Returns a wave or mp3 stream of the passed-in text being spoken in the desired language.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                },
+                {
+                    "name": "text",
+                    "type": "String",
+                    "info": "A string containing a sentence or sentences of the specified language to be spoken for the wave stream. The size of the text to speak must not exceed 2000 characters.",
+                    "required": true
+                },
+                {
+                    "name": "language",
+                    "type": "String",
+                    "info": "A string representing the supported language code to speak the text in. The code must be present in the list of codes returned from the method  GetLanguagesForSpeak.",
+                    "required": true
+                },
+                {
+                    "name": "format",
+                    "type": "Select",
+                    "options": [
+                        "audio\/mp3",
+                        "audio\/wav"
+                    ],
+                    "info": "A string specifying the content-type ID. Currently,  audio\/wav and audio\/mp3 are available. The default value is audio\/wav.",
+                    "required": false
+                },
+                {
+                    "name": "quality",
+                    "type": "Select",
+                    "options": [
+                        "MaxQuality",
+                        "MinSize"
+                    ],
+                    "info": "MaxQuality and MinSize are available to specify the quality of the audio signals. With MaxQuality, you can get voices with the highest quality, and with MinSize, you can get the voices with the smallest size. Default is  MinSize.",
+                    "required": false
+                },
+                {
+                    "name": "voice",
+                    "type": "Select",
+                    "options": [
+                        "female",
+                        "male"
+                    ],
+                    "info": "female and male are available to specify the desired gender of the voice. Default is female.",
+                    "required": false
+                },
+                {
+                    "name": "contentType",
+                    "type": "Select",
+                    "options": [
+                        "text\/plain",
+                        "text\/html"
+                    ],
+                    "info": "The format of the text being translated. The supported formats are text\/plain (default) and  text\/html. Any HTML needs to be a well-formed, complete element.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://api.microsofttranslator.com/V2/Http.svc/Speak",
+                "method": "get",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "language",
+                            "format",
+                            "options",
+                            "text"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "detectLanguage",
+            "description": "Use the Detect method to identify the language of a selected piece of text.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                },
+                {
+                    "name": "text",
+                    "type": "String",
+                    "info": "A string containing some text whose language is to be identified. The size of the text must not exceed 10000 characters.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.microsofttranslator.com\/V2\/Http.svc\/Detect",
+                "method": "get",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "text"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "addTranslation",
+            "description": "Adds a translation to the translation memory.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                },
+                {
+                    "name": "originalText",
+                    "type": "String",
+                    "info": "A string containing the text to translate from. The string has a maximum length of 1000 characters.",
+                    "required": true
+                },
+                {
+                    "name": "translatedText",
+                    "type": "String",
+                    "info": "A string containing translated text in the target language. The string has a maximum length of 2000 characters.",
+                    "required": true
+                },
+                {
+                    "name": "from",
+                    "type": "String",
+                    "info": "A string representing the language code of the translation text. en = english, de = german etc.",
+                    "required": true
+                },
+                {
+                    "name": "to",
+                    "type": "String",
+                    "info": "A string representing the language code to translate the text into.",
+                    "required": true
+                },
+                {
+                    "name": "rating",
+                    "type": "Number",
+                    "info": "An integer representing the quality rating for this string. Value between -10 and 10. Defaults to 1.",
+                    "required": false
+                },
+                {
+                    "name": "category",
+                    "type": "String",
+                    "info": "A string containing the category (domain) of the translation. Defaults to `general`.",
+                    "required": false
+                },
+                {
+                    "name": "user",
+                    "type": "String",
+                    "info": "A string used to track the originator of the submission.",
+                    "required": true
+                },
+                {
+                    "name": "uri",
+                    "type": "String",
+                    "info": "A string containing the content location of this translation.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.microsofttranslator.com\/V2\/Http.svc\/AddTranslation",
+                "method": "get",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "originalText",
+                            "translatedText",
+                            "from",
+                            "to",
+                            "rating",
+                            "contentType",
+                            "category",
+                            "user",
+                            "uri"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getBreakSentences",
+            "description": "Breaks a piece of text into sentences and returns an array containing the lengths in each sentence",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                },
+                {
+                    "name": "text",
+                    "type": "String",
+                    "info": "A string representing the text to split into sentences. The size of the text must not exceed 10000 characters.",
+                    "required": true
+                },
+                {
+                    "name": "language",
+                    "type": "String",
+                    "info": "A string representing the language code of input text.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.microsofttranslator.com\/V2\/Http.svc\/BreakSentences",
+                "method": "get",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "text",
+                            "language"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "addTranslateArray",
+            "description": "Use this method to retrieve translations for multiple source texts.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                },
+                {
+                    "name": "from",
+                    "type": "String",
+                    "info": "A string representing the language code to translate the text from. If left empty the response will include the result of language auto-detection.",
+                    "required": false
+                },
+                {
+                    "name": "category",
+                    "type": "String",
+                    "info": "A string containing the category (domain) of the translation. Defaults to general.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "category"
+                    }
+                },
+                {
+                    "name": "contentType",
+                    "type": "Select",
+                    "options": [
+                        "text\/plain",
+                        "text\/html"
+                    ],
+                    "info": "The format of the text being translated. The supported formats are text\/plain (default) and  text\/html. Any HTML needs to be a well-formed, complete element.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "ContentType"
+                    }
+                },
+                {
+                    "name": "profanityAction",
+                    "type": "Select",
+                    "options": [
+                        "ProfanityAction",
+                        "NoAction",
+                        "Marked",
+                        "Deleted"
+                    ],
+                    "info": "Specifies how profanities are handled as explained above. Accepted values of ProfanityAction are NoAction (default), Marked and Deleted.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "ProfanityAction"
+                    }
+                },
+                {
+                    "name": "state",
+                    "type": "String",
+                    "info": "User state to help correlate request and response. The same contents will be returned in the response.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "State"
+                    }
+                },
+                {
+                    "name": "uri",
+                    "type": "String",
+                    "info": "Filter results by this URI. Default: all.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "Uri"
+                    }
+                },
+                {
+                    "name": "user",
+                    "type": "String",
+                    "info": "Filter results by this user. Default: all.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "User"
+                    }
+                },
+                {
+                    "name": "texts",
+                    "type": "List",
+                    "structure": {
+                        "name": "text",
+                        "type": "String",
+                        "info": "Texts for translation.All strings must be of the same language."
+                    },
+                    "info": "An array containing the texts for translation. All strings must be of the same language. The total of all texts to be translated must not exceed 10000 characters. The maximum number of array elements is 2000.",
+                    "required": true
+                },
+                {
+                    "name": "to",
+                    "type": "String",
+                    "info": "A string representing the language code to translate the text into.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.microsofttranslator.com\/V2\/Http.svc\/TranslateArray",
+                "method": "post",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getLanguageNames",
+            "description": "Retrieves friendly names for the languages passed in as the parameter languageCodes, and localized using the passed locale language.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                },
+                {
+                    "name": "locale",
+                    "type": "String",
+                    "info": "A string representing a combination of an ISO 639 two-letter lowercase culture code associated with a language and an ISO 3166 two-letter uppercase subculture code to localize the language names or a ISO 639 lowercase culture code by itself.",
+                    "required": true
+                },
+                {
+                    "name": "languageCodes",
+                    "type": "List",
+                    "structure": {
+                        "name": "code",
+                        "type": "String",
+                        "info": "Single language code."
+                    },
+                    "info": "This field includes a list representing the ISO 639-1 language codes to retrieve the friendly names for.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.microsofttranslator.com\/V2\/Http.svc\/GetLanguageNames",
+                "method": "post",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "locale"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "detectLanguageList",
+            "description": "Use this method to identify the language of an list of string at once. Performs independent detection of each individual array element and returns a result for each row of the array.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                },
+                {
+                    "name": "textList",
+                    "type": "List",
+                    "structure": {
+                        "name": "text",
+                        "type": "String",
+                        "info": "Text for detect."
+                    },
+                    "info": "The size of the text must not exceed 10000 characters.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.microsofttranslator.com\/V2\/Http.svc\/DetectArray",
+                "method": "post",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "addTranslationArray",
+            "description": "Adds an array of translations to add translation memory. This is an array version of AddTranslation.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                },
+                {
+                    "name": "from",
+                    "type": "String",
+                    "info": "A string containing the language code of the source language. Must be one of the languages returned by theGetLanguagesForTranslate method.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "From"
+                    }
+                },
+                {
+                    "name": "category",
+                    "type": "String",
+                    "info": "A string containing the category (domain) of the translation. Defaults to `general`.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "Category"
+                    }
+                },
+                {
+                    "name": "contentType",
+                    "type": "Select",
+                    "options": [
+                        "text\/plain",
+                        "text\/html"
+                    ],
+                    "info": "The format of the text being translated. The supported formats are text\/plain (default) and  text\/html. Any HTML needs to be a well-formed, complete element.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "ContentType"
+                    }
+                },
+                {
+                    "name": "user",
+                    "type": "String",
+                    "info": "A string used to track the originator of the submission.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "User"
+                    }
+                },
+                {
+                    "name": "uri",
+                    "type": "String",
+                    "info": "A string containing the content location of this translation.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "Uri"
+                    }
+                },
+                {
+                    "name": "to",
+                    "type": "String",
+                    "info": " A string containing the language code of the target language. Must be one of the languages returned by the GetLanguagesForTranslate method.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "To"
+                    }
+                },
+                {
+                    "name": "translations",
+                    "type": "Array",
+                    "info": "An array of translations to add to translation memory.The size of each originalText and translatedText is limited to 1000 chars. The total of all the originalText(s) and translatedText(s) must not exceed 10000 characters. The maximum number of array elements is 100.",
+                    "required": true,
+                    "structure": [
+                        {
+                            "name": "originalText",
+                            "type": "String",
+                            "info": "A string containing the text to translate from. The string has a maximum length of 1000 characters.",
+                            "required": true
+                        },
+                        {
+                            "name": "translatedText",
+                            "type": "String",
+                            "info": "A string containing translated text in the target language. The string has a maximum length of 2000 characters.",
+                            "required": true
+                        },
+                        {
+                            "name": "rating",
+                            "type": "Number",
+                            "info": "An integer representing the quality rating for this string. Value between -10 and 10. Defaults to 1.",
+                            "required": false
+                        }
+                    ],
+                    "vendorSchema":{
+                        "name":"Translations"
+                    }
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.microsofttranslator.com\/V2\/Http.svc\/AddTranslationArray",
+                "method": "post",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getTranslations",
+            "description": "Retrieves an array of translations for a given language pair from the store and the MT engine. GetTranslations differs from Translate as it returns all available translations.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                },
+                {
+                    "name": "text",
+                    "type": "String",
+                    "info": "A string representing the text to translate. The size of the text must not exceed 10000 characters.",
+                    "required": true
+                },
+                {
+                    "name": "to",
+                    "type": "String",
+                    "info": "A string representing the language code to translate the text into.",
+                    "required": true
+                },
+                {
+                    "name": "from",
+                    "type": "String",
+                    "info": "A string representing the language code of the translation text. For example, `en` for English.",
+                    "required": true
+                },
+                {
+                    "name": "contentType",
+                    "type": "Select",
+                    "options": [
+                        "text\/plain",
+                        "text\/html"
+                    ],
+                    "info": "The format of the text being translated. The supported formats are text\/plain (default) and  text\/html. Any HTML needs to be a well-formed, complete element.",
+                    "required": false,
+                    "vendorSchema":{
+                        "name":"ContentType"
+                    }
+                },
+                {
+                    "name": "category",
+                    "type": "String",
+                    "info": "A string containing the category (domain) of the translation. Defaults to `general`.",
+                    "required": false,
+                    "vendorSchema":{
+                        "name":"Category"
+                    }
+                },
+                {
+                    "name": "maxTranslations",
+                    "type": "Number",
+                    "info": "An integer representing the maximum number of translations to return.",
+                    "required": true
+                },
+                {
+                    "name": "state",
+                    "type": "String",
+                    "info": "User state to help correlate request and response. The same contents will be returned in the response.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "State"
+                    }
+                },
+                {
+                    "name": "user",
+                    "type": "String",
+                    "info": "A string used to track the originator of the submission.",
+                    "required": true,
+                    "vendorSchema":{
+                        "name":"User"
+                    }
+
+                },
+                {
+                    "name": "uri",
+                    "type": "String",
+                    "info": "A string containing the content location of this translation.",
+                    "required": false,
+                    "vendorSchema":{
+                        "name":"Uri"
+                    }
+                },
+                {
+                    "name": "includeMultipleMTAlternatives",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "Boolean flag to determine whether more than one alternatives should be returned from the MT engine. Valid values are true and false (case-sensitive). Default is false and includes only 1 alternative.See more in readme.",
+                    "required": false,
+                    "vendorSchema":{
+                        "name":"IncludeMultipleMTAlternatives"
+                    }
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.microsofttranslator.com\/V2\/Http.svc\/GetTranslations",
+                "method": "post",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "text",
+                            "from",
+                            "to",
+                            "maxTranslations"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getTranslationsArray",
+            "description": "Use the GetTranslationsArray method to retrieve multiple translation candidates for multiple source texts.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.",
+                    "required": true
+                },
+                {
+                    "name": "from",
+                    "type": "String",
+                    "info": "A string representing the language code to translate the text from. If left empty the response will include the result of language auto-detection.",
+                    "required": false
+                },
+                {
+                    "name": "category",
+                    "type": "String",
+                    "info": "A string containing the category (domain) of the translation. Defaults to general.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "category"
+                    }
+                },
+                {
+                    "name": "contentType",
+                    "type": "Select",
+                    "options": [
+                        "text\/plain",
+                        "text\/html"
+                    ],
+                    "info": "The format of the text being translated. The supported formats are text\/plain (default) and  text\/html. Any HTML needs to be a well-formed, complete element.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "ContentType"
+                    }
+                },
+                {
+                    "name": "profanityAction",
+                    "type": "Select",
+                    "options": [
+                        "ProfanityAction",
+                        "NoAction",
+                        "Marked",
+                        "Deleted"
+                    ],
+                    "info": "Specifies how profanities are handled as explained above. Accepted values of ProfanityAction are NoAction (default), Marked and Deleted.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "ProfanityAction"
+                    }
+                },
+                {
+                    "name": "state",
+                    "type": "String",
+                    "info": "User state to help correlate request and response. The same contents will be returned in the response.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "State"
+                    }
+                },
+                {
+                    "name": "uri",
+                    "type": "String",
+                    "info": "Filter results by this URI. Default: all.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "Uri"
+                    }
+                },
+                {
+                    "name": "user",
+                    "type": "String",
+                    "info": "Filter results by this user. Default: all.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "User"
+                    }
+                },
+                {
+                    "name": "IncludeMultipleMTAlternatives",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "Boolean flag to determine whether more than one alternatives should be returned from the MT engine. Valid values are true and false (case-sensitive). Default is false and includes only 1 alternative.See more in readme.",
+                    "required": false
+                },
+                {
+                    "name": "maxTranslations",
+                    "type": "Number",
+                    "info": "An integer representing the maximum number of translations to return.",
+                    "required": true,
+                    "vendorSchema":{
+                        "name":"MaxTranslations"
+                    }
+                },
+                {
+                    "name": "texts",
+                    "type": "List",
+                    "structure": {
+                        "name": "text",
+                        "type": "String",
+                        "info": "Texts for translation.All strings must be of the same language."
+                    },
+                    "info": "An array containing the texts for translation. All strings must be of the same language. The total of all texts to be translated must not exceed 10000 characters. The maximum number of array elements is 2000.",
+                    "required": true
+                },
+                {
+                    "name": "to",
+                    "type": "String",
+                    "info": "A string representing the language code to translate the text into.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.microsofttranslator.com\/V2\/Http.svc\/GetTranslationsArray",
+                "method": "post",
+                "headers": {
+                    "Ocp-Apim-Subscription-Key": "{$data['apiKey']}"
+                },
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        }
+    ]
+}
