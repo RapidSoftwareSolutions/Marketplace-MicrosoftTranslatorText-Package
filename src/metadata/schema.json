@@ -58,16 +58,6 @@
                     "required": false
                 },
                 {
-                    "name": "contentType",
-                    "type": "Select",
-                    "options": [
-                        "text\/plain",
-                        "text\/html"
-                    ],
-                    "info": "The format of the text being translated. The supported formats are text\/plain (default) and  text\/html. Any HTML needs to be a well-formed, complete element.",
-                    "required": false
-                },
-                {
                     "name": "category",
                     "type": "String",
                     "info": "A string containing the category (domain) of the translation. Defaults to `general`.",
@@ -214,16 +204,6 @@
                         "male"
                     ],
                     "info": "female and male are available to specify the desired gender of the voice. Default is female.",
-                    "required": false
-                },
-                {
-                    "name": "contentType",
-                    "type": "Select",
-                    "options": [
-                        "text\/plain",
-                        "text\/html"
-                    ],
-                    "info": "The format of the text being translated. The supported formats are text\/plain (default) and  text\/html. Any HTML needs to be a well-formed, complete element.",
                     "required": false
                 }
             ],
@@ -468,19 +448,6 @@
                     }
                 },
                 {
-                    "name": "contentType",
-                    "type": "Select",
-                    "options": [
-                        "text\/plain",
-                        "text\/html"
-                    ],
-                    "info": "The format of the text being translated. The supported formats are text\/plain (default) and  text\/html. Any HTML needs to be a well-formed, complete element.",
-                    "required": false,
-                    "vendorSchema": {
-                        "name": "ContentType"
-                    }
-                },
-                {
                     "name": "profanityAction",
                     "type": "Select",
                     "options": [
@@ -683,19 +650,6 @@
                     }
                 },
                 {
-                    "name": "contentType",
-                    "type": "Select",
-                    "options": [
-                        "text\/plain",
-                        "text\/html"
-                    ],
-                    "info": "The format of the text being translated. The supported formats are text\/plain (default) and  text\/html. Any HTML needs to be a well-formed, complete element.",
-                    "required": false,
-                    "vendorSchema": {
-                        "name": "ContentType"
-                    }
-                },
-                {
                     "name": "user",
                     "type": "String",
                     "info": "A string used to track the originator of the submission.",
@@ -798,19 +752,6 @@
                     "type": "String",
                     "info": "A string representing the language code of the translation text. For example, `en` for English.",
                     "required": true
-                },
-                {
-                    "name": "contentType",
-                    "type": "Select",
-                    "options": [
-                        "text\/plain",
-                        "text\/html"
-                    ],
-                    "info": "The format of the text being translated. The supported formats are text\/plain (default) and  text\/html. Any HTML needs to be a well-formed, complete element.",
-                    "required": false,
-                    "vendorSchema":{
-                        "name":"ContentType"
-                    }
                 },
                 {
                     "name": "category",
@@ -921,19 +862,6 @@
                     "required": false,
                     "vendorSchema": {
                         "name": "category"
-                    }
-                },
-                {
-                    "name": "contentType",
-                    "type": "Select",
-                    "options": [
-                        "text\/plain",
-                        "text\/html"
-                    ],
-                    "info": "The format of the text being translated. The supported formats are text\/plain (default) and  text\/html. Any HTML needs to be a well-formed, complete element.",
-                    "required": false,
-                    "vendorSchema": {
-                        "name": "ContentType"
                     }
                 },
                 {

@@ -33,7 +33,21 @@ $app->post('/api/MicrosoftTranslatorText/getSpeak', function ($request, $respons
 
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Ocp-Apim-Subscription-Key"=>"{$data['apiKey']}"];
-     
+     if(!empty($data['voice']) && !empty($data['quality']))
+     {
+         $requestParams['query']['options'] = $data['voice'].'|'.$data['quality'];
+     } else {
+         if(!empty($data['voice']))
+         {
+             $requestParams['query']['options'] = $data['voice'];
+
+         } else if(!empty($data['quality']))
+         {
+            $requestParams['query']['options'] = $data['quality'];
+         } else {
+             unset($requestParams['query']['options']);
+         }
+     }
 
     try {
         $resp = $client->get($query_str, $requestParams);
