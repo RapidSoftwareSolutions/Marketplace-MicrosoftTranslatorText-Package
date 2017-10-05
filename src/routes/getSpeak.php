@@ -25,7 +25,7 @@ $app->post('/api/MicrosoftTranslatorText/getSpeak', function ($request, $respons
     $client = $this->httpClient;
     $query_str = "https://api.microsofttranslator.com/V2/Http.svc/Speak";
     $format = '.wav';
-    if(!empty($data['format']) || $data['format'] == 'audio/mp3')
+    if(!empty($data['format']) && $data['format'] == 'audio/mp3')
     {
         $format = '.mp3';
     }
@@ -48,6 +48,9 @@ $app->post('/api/MicrosoftTranslatorText/getSpeak', function ($request, $respons
              unset($requestParams['query']['options']);
          }
      }
+
+     print_r($requestParams);
+     exit();
 
     try {
         $resp = $client->get($query_str, $requestParams);

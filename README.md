@@ -34,7 +34,6 @@ Translates a text string from one language to another.If you previously used Add
 | text       | String     | A string representing the text to translate. The size of the text must not exceed 10000 characters.
 | to         | String     | A string representing the language code to translate the text into.
 | from       | String     | A string representing the language code of the translation text. For example, `en` for English.
-| contentType| Select     | The format of the text being translated. The supported formats are text/plain (default) and  text/html. Any HTML needs to be a well-formed, complete element.
 | category   | String     | A string containing the category (domain) of the translation. Defaults to `general`.
 
 ## MicrosoftTranslatorText.getLanguagesForTranslate
@@ -62,7 +61,6 @@ Returns a wave or mp3 stream of the passed-in text being spoken in the desired l
 | format     | Select     | A string specifying the content-type ID. Currently,  audio/wav and audio/mp3 are available. The default value is audio/wav.
 | quality    | Select     | MaxQuality and MinSize are available to specify the quality of the audio signals. With MaxQuality, you can get voices with the highest quality, and with MinSize, you can get the voices with the smallest size. Default is  MinSize.
 | voice      | Select     | female and male are available to specify the desired gender of the voice. Default is female.
-| contentType| Select     | The format of the text being translated. The supported formats are text/plain (default) and  text/html. Any HTML needs to be a well-formed, complete element.
 
 ## MicrosoftTranslatorText.detectLanguage
 Use the Detect method to identify the language of a selected piece of text.
@@ -104,7 +102,6 @@ Use this method to retrieve translations for multiple source texts.
 | apiKey         | credentials| Your API Key.
 | from           | String     | A string representing the language code to translate the text from. If left empty the response will include the result of language auto-detection.
 | category       | String     | A string containing the category (domain) of the translation. Defaults to general.
-| contentType    | Select     | The format of the text being translated. The supported formats are text/plain (default) and  text/html. Any HTML needs to be a well-formed, complete element.
 | profanityAction| Select     | Specifies how profanities are handled as explained above. Accepted values of ProfanityAction are NoAction (default), Marked and Deleted.
 | state          | String     | User state to help correlate request and response. The same contents will be returned in the response.
 | uri            | String     | Filter results by this URI. Default: all.
@@ -137,7 +134,6 @@ Adds an array of translations to add translation memory. This is an array versio
 | apiKey      | credentials| Your API Key.
 | from        | String     | A string containing the language code of the source language. Must be one of the languages returned by theGetLanguagesForTranslate method.
 | category    | String     | A string containing the category (domain) of the translation. Defaults to `general`.
-| contentType | Select     | The format of the text being translated. The supported formats are text/plain (default) and  text/html. Any HTML needs to be a well-formed, complete element.
 | user        | String     | A string used to track the originator of the submission.
 | uri         | String     | A string containing the content location of this translation.
 | to          | String     |  A string containing the language code of the target language. Must be one of the languages returned by the GetLanguagesForTranslate method.
@@ -155,13 +151,12 @@ Retrieves an array of translations for a given language pair from the store and 
 | text                         | String     | A string representing the text to translate. The size of the text must not exceed 10000 characters.
 | to                           | String     | A string representing the language code to translate the text into.
 | from                         | String     | A string representing the language code of the translation text. For example, `en` for English.
-| contentType                  | Select     | The format of the text being translated. The supported formats are text/plain (default) and  text/html. Any HTML needs to be a well-formed, complete element.
 | category                     | String     | A string containing the category (domain) of the translation. Defaults to `general`.
 | maxTranslations              | Number     | An integer representing the maximum number of translations to return.
 | state                        | String     | User state to help correlate request and response. The same contents will be returned in the response.
 | user                         | String     | A string used to track the originator of the submission.
 | uri                          | String     | A string containing the content location of this translation.
-| includeMultipleMTAlternatives| Select     | Boolean flag to determine whether more than one alternatives should be returned from the MT engine. Valid values are true and false (case-sensitive). Default is false and includes only 1 alternative.See more in readme.
+| includeMultipleMTAlternatives| Select     | Boolean flag to determine whether more than one alternatives should be returned from the MT engine. Valid values are true and false (case-sensitive). Default is false and includes only 1 alternative. Setting the flag to true allows for generating artificial alternatives in translation, fully integrated with the collaborative translations framework (CTF). The feature allows for returning alternatives for sentences that have no alternatives in CTF, by adding artificial alternatives from the n-best list of the decoder.`Ratings` The ratings are applied as follows: 1) The best automatic translation has a rating of 5. 2) The alternatives from CTF reflect the authority of the reviewer, from -10 to +10. 3) The automatically generated (n-best) translation alternatives have a rating of 0, and have a match degree of 100.`Number` of Alternatives The number of returned alternatives is up to maxTranslations, but may be less.`Language` pairs This functionality is not available for translations between Simplified and Traditional Chinese, both directions. It is available for all other Microsoft Translator supported language pairs.
 
 ## MicrosoftTranslatorText.getTranslationsArray
 Use the GetTranslationsArray method to retrieve multiple translation candidates for multiple source texts.
@@ -171,12 +166,11 @@ Use the GetTranslationsArray method to retrieve multiple translation candidates 
 | apiKey                       | credentials| Your API Key.
 | from                         | String     | A string representing the language code to translate the text from. If left empty the response will include the result of language auto-detection.
 | category                     | String     | A string containing the category (domain) of the translation. Defaults to general.
-| contentType                  | Select     | The format of the text being translated. The supported formats are text/plain (default) and  text/html. Any HTML needs to be a well-formed, complete element.
 | profanityAction              | Select     | Specifies how profanities are handled as explained above. Accepted values of ProfanityAction are NoAction (default), Marked and Deleted.
 | state                        | String     | User state to help correlate request and response. The same contents will be returned in the response.
 | uri                          | String     | Filter results by this URI. Default: all.
 | user                         | String     | Filter results by this user. Default: all.
-| IncludeMultipleMTAlternatives| Select     | Boolean flag to determine whether more than one alternatives should be returned from the MT engine. Valid values are true and false (case-sensitive). Default is false and includes only 1 alternative.See more in readme.
+| includeMultipleMTAlternatives| Select     | Boolean flag to determine whether more than one alternatives should be returned from the MT engine. Valid values are true and false (case-sensitive). Default is false and includes only 1 alternative. Setting the flag to true allows for generating artificial alternatives in translation, fully integrated with the collaborative translations framework (CTF). The feature allows for returning alternatives for sentences that have no alternatives in CTF, by adding artificial alternatives from the n-best list of the decoder.`Ratings` The ratings are applied as follows: 1) The best automatic translation has a rating of 5. 2) The alternatives from CTF reflect the authority of the reviewer, from -10 to +10. 3) The automatically generated (n-best) translation alternatives have a rating of 0, and have a match degree of 100.`Number` of Alternatives The number of returned alternatives is up to maxTranslations, but may be less.`Language` pairs This functionality is not available for translations between Simplified and Traditional Chinese, both directions. It is available for all other Microsoft Translator supported language pairs.
 | maxTranslations              | Number     | An integer representing the maximum number of translations to return.
 | texts                        | List       | An array containing the texts for translation. All strings must be of the same language. The total of all texts to be translated must not exceed 10000 characters. The maximum number of array elements is 2000.
 | to                           | String     | A string representing the language code to translate the text into.

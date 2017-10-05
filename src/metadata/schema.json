@@ -451,7 +451,6 @@
                     "name": "profanityAction",
                     "type": "Select",
                     "options": [
-                        "ProfanityAction",
                         "NoAction",
                         "Marked",
                         "Deleted"
@@ -868,7 +867,6 @@
                     "name": "profanityAction",
                     "type": "Select",
                     "options": [
-                        "ProfanityAction",
                         "NoAction",
                         "Marked",
                         "Deleted"
