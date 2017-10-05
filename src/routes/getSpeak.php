@@ -49,8 +49,6 @@ $app->post('/api/MicrosoftTranslatorText/getSpeak', function ($request, $respons
          }
      }
 
-     print_r($requestParams);
-     exit();
 
     try {
         $resp = $client->get($query_str, $requestParams);
